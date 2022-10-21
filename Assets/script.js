@@ -83,7 +83,6 @@ function weatherFunction(city){
     //         forecastWind.textContent = "Wind:" + forecast.data[i].wind_spd + "MPH";
     //     }
     }
-}
 
 searchBtn.addEventListener('click', function() {
     let city = cityInput.value;
