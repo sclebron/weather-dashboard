@@ -6,7 +6,14 @@ let humidityEl = document.getElementById("humidity");
 let windEl = document.getElementById("wind");
 let forecastDiv = document.getElementById("forecast");
 let weatherDashboard = document.getElementById("city");
-let date = new Date().toUTCString().slice(5, 16);
+let cardIcon = document.querySelector(".card-icon");
+let cardTemp = document.querySelector(".card-temp");
+let cardHumidity = document.querySelector(".card-humidity");
+let cardWind = document.querySelector(".card-wind");
+let cardDate = document.querySelector(".card-date");
+let month = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+let dateCall = new Date();
+let date = month[dateCall.getMonth()] + "/" + dateCall.getDate() + "/" + dateCall.getFullYear();
 
 function weatherFunction(city){
     let apiParams = new URLSearchParams({
@@ -53,18 +60,28 @@ function weatherFunction(city){
     });
 
     let forecastWeather = function(forecast) {
-        for (let i=1; i<6; i++) {
-            let icon = document.getElementById("icon"+[i]);
-            let cardTitle = document.getElementById("date"+[i]);
-            let forecastTemp = document.getElementById("temperature"+[i]);
-            let forecastHumidity = document.getElementById("humidity"+[i]);
-            let forecastWind = document.getElementById("wind"+[i]);
-
-            cardTitle.textContent = "Forecast:" + forecast.data[i].valid_date;
-            forecastTemp.textContent = "Temperature:" + forecast.data[i].temp + "°F";
-            forecastHumidity.textContent = "Humidity:" + forecast.data[i].rh + "%";
-            forecastWind.textContent = "Wind:" + forecast.data[i].wind_spd + "MPH";
+        for(i=1; i<6; i++) {
+            cardDate[i-1].textContent = forecast.data[i].datetime;
+            cardIcon[i-1].src = "./assets/icons/" + forecastdata[i].weather.icon + ".png";
+            cardTemp[i-1].textContent = "Temperature:" + forecast.data[i].temp;
+            cardHumidity[i-1].textContent = "Humidity:" + forecast.data[i].rh + "%";
+            cardWind[i-1].textContent = "Wind:" + forecast.data[i].wind_spd + "MPH";
         }
+    }
+
+    // let forecastWeather = function(forecast) {
+    //     for (let i=1; i<6; i++) {
+    //         let icon = document.getElementById("icon"+[i]);
+    //         let cardTitle = document.getElementById("date"+[i]);
+    //         let forecastTemp = document.getElementById("temperature"+[i]);
+    //         let forecastHumidity = document.getElementById("humidity"+[i]);
+    //         let forecastWind = document.getElementById("wind"+[i]);
+
+    //         cardTitle.textContent = "Forecast:" + forecast.data[i].valid_date;
+    //         forecastTemp.textContent = "Temperature:" + forecast.data[i].temp + "°F";
+    //         forecastHumidity.textContent = "Humidity:" + forecast.data[i].rh + "%";
+    //         forecastWind.textContent = "Wind:" + forecast.data[i].wind_spd + "MPH";
+    //     }
     }
 }
 
